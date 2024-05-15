@@ -28,11 +28,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.stackoverflow.R
 import com.example.stackoverflow.activity.ui.theme.StackOverFlowTheme
+import com.example.stackoverflow.models.User
+import com.example.stackoverflow.network.ServerCallManager
 
 class LoginActivity : ComponentActivity() {
 
+    lateinit var serverCallManager: ServerCallManager
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        serverCallManager = ServerCallManager()
         setContent {
             StackOverFlowTheme {
                 // A surface container using the 'background' color from the theme
@@ -50,7 +56,8 @@ class LoginActivity : ComponentActivity() {
     }
 
     private fun onClickLoginBtn(email: String, password: String) {
-
+        val user = User("username",email, password)
+        serverCallManager.createUser(user)
     }
 }
 
